@@ -6,15 +6,35 @@
 </mat-toolbar>
 
 <div class="content" role="main">
-  <!-- Terminal -->
-  <!-- <div class="terminal" [ngSwitch]="selection.value">
-      <pre *ngSwitchDefault>ng generate component xyz</pre>
-      <pre *ngSwitchCase="'material'">ng add @angular/material</pre>
-      <pre *ngSwitchCase="'pwa'">ng add @angular/pwa</pre>
-      <pre *ngSwitchCase="'dependency'">ng add _____</pre>
-      <pre *ngSwitchCase="'test'">ng test</pre>
-      <pre *ngSwitchCase="'build'">ng build --prod</pre>
-  </div> -->
+  <div style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <h3><b>Current Time</b></h3>
+      <div>{{ currentTimeMoment }}</div>
+      <div class="terminal">
+        <pre>now(): _moment.Moment</pre>
+        <pre>    return this.moment()</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <h3><b>Current Time</b></h3>
+      <div>{{ currentTimeLuxon }}</div>
+      <div class="terminal">
+        <pre>now(): DateTime</pre>
+        <pre>    return DateTime.now();</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <h3><b>Current Time</b></h3>
+      <div>{{ currentTimeDayJs }}</div>
+      <div class="terminal">
+        <pre>now(): dayjs.Dayjs</pre>
+        <pre>    return dayjs();</pre>
+      </div>
+    </div>
+  </div>
 
   <!-- Links -->
   <div class="card-container">
