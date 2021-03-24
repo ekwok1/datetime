@@ -6,19 +6,27 @@
 </mat-toolbar>
 
 <div class="content" role="main">
-  <div style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+  <h1>Functionality</h1>
+  <section fxLayoutGap="1rem" style="margin-bottom: 2rem">
+    <button mat-raised-button (click)="toggleView(ViewEnum.currentTime)">Current Time</button>
+    <button mat-raised-button (click)="toggleView(ViewEnum.parseTime)">Parse Time</button>
+    <button mat-raised-button (click)="toggleView(ViewEnum.convertUtc)">Convert to UTC</button>
+    <button mat-raised-button (click)="toggleView(ViewEnum.localize)">Localization</button>
+    <button mat-raised-button (click)="toggleView(ViewEnum.manipulation)">Manipulation</button>
+    <button mat-raised-button (click)="toggleView(ViewEnum.generateUtc)">Generate UTC</button>
+  </section>
+  <h1 *ngIf="showCurrentTime">Current Time</h1>
+  <div *ngIf="showCurrentTime" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
     <div>
       <h1>Moment</h1>
-      <h3><b>Current Time</b></h3>
       <div>{{ currentTimeMoment }}</div>
       <div class="terminal">
         <pre>now(): _moment.Moment</pre>
-        <pre>    return this.moment()</pre>
+        <pre>    return this.moment();</pre>
       </div>
     </div>
     <div>
       <h1>Luxon</h1>
-      <h3><b>Current Time</b></h3>
       <div>{{ currentTimeLuxon }}</div>
       <div class="terminal">
         <pre>now(): DateTime</pre>
@@ -27,11 +35,192 @@
     </div>
     <div>
       <h1>DayJS</h1>
-      <h3><b>Current Time</b></h3>
       <div>{{ currentTimeDayJs }}</div>
       <div class="terminal">
         <pre>now(): dayjs.Dayjs</pre>
         <pre>    return dayjs();</pre>
+      </div>
+    </div>
+  </div>
+  <h1 *ngIf="showParseTime">Parse Time</h1>
+  <div *ngIf="showParseTime">Current Time in Millis: {{ currentMillis }}</div>
+  <div *ngIf="showParseTime">Current Time in JS Date: {{ currentJsDate }}</div>
+  <div *ngIf="showParseTime">Current Time in ISO: {{ currentISO }}</div>
+  <div *ngIf="showParseTime" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <div><b>Parse Millis:</b> {{ parseMillisMoment }}</div>
+      <div><b>Parse Js Date:</b> {{ parseJsDateMoment }}</div>
+      <div><b>Parse ISO:</b> {{ parseISOMoment }}</div>
+      <div class="terminal">
+        <pre>parse(input: _moment.MomentInput): _moment.Moment</pre>
+        <pre>    return this.moment(input);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <div><b>Parse Millis:</b> {{ parseMillisLuxon }}</div>
+      <div><b>Parse Js Date:</b> {{ parseJsDateLuxon }}</div>
+      <div><b>Parse ISO:</b> {{ parseISOLuxon }}</div>
+      <div class="terminal">
+        <pre>parseMillis(millis: number): DateTime</pre>
+        <pre>    return DateTime.fromMillis(millis);</pre>
+      </div>
+      <div class="terminal">
+        <pre>parseJsDate(jsDate: Date): DateTime</pre>
+        <pre>    return DateTime.fromJSDate(jsDate);</pre>
+      </div>
+      <div class="terminal">
+        <pre>parseISOString(iso: string): DateTime</pre>
+        <pre>    return DateTime.fromISO(iso);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <div><b>Parse Millis:</b> {{ parseMillisDayJs }}</div>
+      <div><b>Parse Js Date:</b> {{ parseJsDateDayJs }}</div>
+      <div><b>Parse ISO:</b> {{ parseISODayJs }}</div>
+      <div class="terminal">
+        <pre>parse(input: dayjs.ConfigType | undefined): dayjs.Dayjs</pre>
+        <pre>    return dayjs(input);</pre>
+      </div>
+    </div>
+  </div>
+  <h1 *ngIf="showConvertUtc">Convert to UTC</h1>
+  <div *ngIf="showConvertUtc"><b>Current JS Date:</b> {{ currentJsDate }}</div>
+  <div *ngIf="showConvertUtc" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <div>{{ utcMoment }}</div>
+      <div class="terminal">
+        <pre>utc(input: _moment.MomentInput): _moment.Moment</pre>
+        <pre>    return this.moment.utc(input);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <div>{{ utcLuxon }}</div>
+      <div class="terminal">
+        <pre>utc(input: DateTime): DateTime</pre>
+        <pre>    return input.toUTC();</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <div>{{ utcDayJs }}</div>
+      <div class="terminal">
+        <pre>utc(input: dayjs.Dayjs): dayjs.Dayjs</pre>
+        <pre>    return input.utc();</pre>
+      </div>
+    </div>
+  </div>
+  <h1 *ngIf="showLocalize">Localize</h1>
+  <div *ngIf="showLocalize"><b>Current JS Date:</b> {{ currentJsDate }}</div>
+  <div *ngIf="showLocalize" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <div>{{ localizeMoment }}</div>
+      <div class="terminal">
+        <pre>localize(input: _moment.MomentInput,</pre>
+        <pre>         format: string): string</pre>
+        <pre>    return this.moment(input).format(format);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <div>{{ localizeLuxon }}</div>
+      <div class="terminal">
+        <pre>localize(input: DateTime,</pre>
+        <pre>         format: DateTimeFormatOptions): string</pre>
+        <pre>    return input.toLocaleString(format);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <div>{{ localizeDayJs }}</div>
+      <div class="terminal">
+        <pre>localize(input: dayjs.Dayjs,</pre>
+        <pre>         format: string): string</pre>
+        <pre>    return input.format(format);</pre>
+      </div>
+    </div>
+  </div>
+  <h1 *ngIf="showManipulation">Manipulation</h1>
+  <div *ngIf="showManipulation"><b>Current JS Date:</b> {{ currentJsDate }}</div>
+  <div *ngIf="showManipulation" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <div>{{ addMoment }}</div>
+      <div class="terminal">
+        <pre>add(</pre>
+        <pre>  input: _moment.MomentInput,</pre>
+        <pre>  amount: _moment.DurationInputArg1,</pre>
+        <pre>  unit: _moment.unitOfTime.DurationConstructor</pre>
+        <pre>): _moment.Moment</pre>
+        <pre>    return this.moment(input).add(amount, unit);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <div>{{ addLuxon }}</div>
+      <div class="terminal">
+        <pre>addDays(input: DateTime, amount: number): DateTime</pre>
+        <pre>    return input.plus({{ '{' }} 'day': amount {{ '}' }});</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <div>{{ addDayJs }}</div>
+      <div class="terminal">
+        <pre>add(</pre>
+        <pre>  input: dayjs.Dayjs,</pre>
+        <pre>  amount: number,</pre>
+        <pre>  unit: dayjs.OpUnitType</pre>
+        <pre>): dayjs.DayJs</pre>
+        <pre>    return input.add(amount, unit);</pre>
+      </div>
+    </div>
+  </div>
+  <h1 *ngIf="showGenerateUtc">Generate UTC from parts</h1>
+  <div *ngIf="showGenerateUtc" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <div>{{ generateUtcMoment }}</div>
+      <div class="terminal">
+        <pre>generateUtc(</pre>
+        <pre>  year: number, month: number, date: number,</pre>
+        <pre>  hour: number, minute: number, second: number</pre>
+        <pre>): _moment.Moment</pre>
+        <pre>    return this.moment.utc()</pre>
+        <pre>      .year(year).month(month).date(date)</pre>
+        <pre>      .hour(hour).minute(minute).second(second);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <div>{{ generateUtcLuxon }}</div>
+      <div class="terminal">
+        <pre>generateUtc(</pre>
+        <pre>  year: number, month: number, date: number,</pre>
+        <pre>  hour: number, minute: number, second: number</pre>
+        <pre>): DateTime</pre>
+        <pre>    return DateTime.utc(</pre>
+        <pre>      year, month, date,</pre>
+        <pre>      hour, minute, second</pre>
+        <pre>    );</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <div>{{ generateUtcDayJs }}</div>
+      <div class="terminal">
+        <pre>generateUtc(</pre>
+        <pre>  year: number, month: number, date: number,</pre>
+        <pre>  hour: number, minute: number, second: number</pre>
+        <pre>): dayjs.DayJs</pre>
+        <pre>    return this.dayjs.utc()</pre>
+        <pre>      .year(year).month(month).date(date)</pre>
+        <pre>      .hour(hour).minute(minute).second(second);</pre>
       </div>
     </div>
   </div>

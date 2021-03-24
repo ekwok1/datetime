@@ -24,4 +24,24 @@ export class MomentService {
   parse(input: _moment.MomentInput): _moment.Moment {
     return this.moment(input);
   }
+
+  utc(input: _moment.MomentInput): _moment.Moment {
+    return this.moment.utc(input);
+  }
+
+  localize(input: _moment.MomentInput, format: string): string {
+    return this.moment(input).format(format);
+  }
+
+  add(
+    input: _moment.MomentInput,
+    amount: _moment.DurationInputArg1,
+    unit: _moment.unitOfTime.DurationConstructor
+  ): _moment.Moment {
+    return this.moment(input).add(amount, unit);
+  }
+
+  generateUtc(year: number, month: number, date: number, hour: number, minute: number, second: number): _moment.Moment {
+    return this.moment.utc().year(year).month(month).date(date).hour(hour).minute(minute).second(second);
+  }
 }
