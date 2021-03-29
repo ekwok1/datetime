@@ -44,4 +44,12 @@ export class MomentService {
   generateUtc(year: number, month: number, date: number, hour: number, minute: number, second: number): _moment.Moment {
     return this.moment.utc().year(year).month(month).date(date).hour(hour).minute(minute).second(second);
   }
+
+  endOf(input: _moment.MomentInput, unit: _moment.unitOfTime.StartOf): _moment.Moment {
+    return this.moment(input).endOf(unit);
+  }
+
+  isAfter(inputA: _moment.MomentInput, inputB: _moment.MomentInput): boolean {
+    return this.moment(inputA).isAfter(this.moment(inputB));
+  }
 }

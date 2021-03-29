@@ -1,11 +1,11 @@
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
-import { DateTime, DateTimeFormatOptions, Settings } from 'luxon';
+import { DateTime, DateTimeFormatOptions, DurationObjectUnits, Settings } from 'luxon';
 import { Locale } from './locale.enum';
 
 @Injectable({ providedIn: 'root' })
 export class LuxonService {
   constructor(@Inject(LOCALE_ID) localeId: string) {
-    Settings.defaultLocale = localeId ?? Locale.en;
+    Settings.defaultLocale = Locale.zhCN;
   }
 
   now(): DateTime {
@@ -38,5 +38,13 @@ export class LuxonService {
 
   generateUtc(year: number, month: number, date: number, hour: number, minute: number, second: number): DateTime {
     return DateTime.utc(year, month, date, hour, minute, second);
+  }
+
+  endOf(input: DateTime, unit: keyof DurationObjectUnits): DateTime {
+    return input.endOf(unit);
+  }
+
+  isAfter(inputA: DateTime, inputB: DateTime): boolean {
+    return inputA > inputB;
   }
 }

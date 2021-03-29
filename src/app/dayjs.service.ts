@@ -11,6 +11,7 @@ import { Locale } from './locale.enum';
 // plugins
 import * as utc from 'dayjs/plugin/utc';
 import * as localizedFormat from 'dayjs/plugin/localizedFormat';
+import * as isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 
 @Injectable({ providedIn: 'root' })
 export class DayJsService {
@@ -18,6 +19,7 @@ export class DayJsService {
     dayjs.locale(localeId ?? Locale.en);
     dayjs.extend(utc);
     dayjs.extend(localizedFormat);
+    dayjs.extend(isSameOrAfter);
   }
 
   now(): dayjs.Dayjs {
@@ -47,5 +49,13 @@ export class DayJsService {
     return dayjs.utc()
       .year(year).month(month).date(date)
       .hour(hour).minute(minute).second(second);
+  }
+
+  endOf(input: dayjs.Dayjs, unit: dayjs.OpUnitType): dayjs.Dayjs {
+    return input.endOf(unit);
+  }
+
+  isAfter(inputA: dayjs.Dayjs, inputB: dayjs.Dayjs): boolean {
+    return inputA.isAfter(inputB);
   }
 }

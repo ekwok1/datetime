@@ -14,6 +14,8 @@
     <button mat-raised-button (click)="toggleView(ViewEnum.localize)">Localization</button>
     <button mat-raised-button (click)="toggleView(ViewEnum.manipulation)">Manipulation</button>
     <button mat-raised-button (click)="toggleView(ViewEnum.generateUtc)">Generate UTC</button>
+    <button mat-raised-button (click)="toggleView(ViewEnum.eod)">Set End of Day</button>
+    <button mat-raised-button (click)="toggleView(ViewEnum.comparison)">Comparison</button>
   </section>
   <h1 *ngIf="showCurrentTime">Current Time</h1>
   <div *ngIf="showCurrentTime" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
@@ -221,6 +223,85 @@
         <pre>    return this.dayjs.utc()</pre>
         <pre>      .year(year).month(month).date(date)</pre>
         <pre>      .hour(hour).minute(minute).second(second);</pre>
+      </div>
+    </div>
+  </div>
+  <h1 *ngIf="showEod">Set End of Day</h1>
+  <div *ngIf="showEod" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <div>{{ eodMoment }}</div>
+      <div class="terminal">
+        <pre>endOf(</pre>
+        <pre>  input: _moment.MomentInput,</pre>
+        <pre>  unitOfTime: _moment.unitOfTime.StartOf</pre>
+        <pre>): _moment.Moment</pre>
+        <pre>    return this.moment(input).endOf(unitOfTime);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <div>{{ eodLuxon }}</div>
+      <div class="terminal">
+        <pre>endOf(</pre>
+        <pre>  input: DateTime,</pre>
+        <pre>  unit: keyof DurationObjectUnits</pre>
+        <pre>): DateTime</pre>
+        <pre>    return input.endOf(unit);</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <div>{{ currentTimeDayJs }}</div>
+      <div class="terminal">
+        <pre>endOf(</pre>
+        <pre>  input: dayjs.Dayjs,</pre>
+        <pre>  unit: dayjs.OpUnitType</pre>
+        <pre>): dayjs.Dayjs</pre>
+        <pre>    return input.endOf(unit);</pre>
+      </div>
+    </div>
+  </div>
+  <h1 *ngIf="showComparison">Comparison</h1>
+  <div *ngIf="showComparison" style="width: 90%" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h1>Moment</h1>
+      <div>{{ tomorrowMoment }}</div>
+      is after
+      <div>{{ parseJsDateMoment }}</div>
+      <div>{{ comparisonMoment }}</div>
+      <div class="terminal">
+        <pre>isAfter(</pre>
+        <pre>  inputA: _moment.MomentInput,</pre>
+        <pre>  inputB: _moment.MomentInput</pre>
+        <pre>): boolean</pre>
+        <pre>    return this.moment(inputA)</pre>
+        <pre>      .isAfter(this.moment(inputB));</pre>
+      </div>
+    </div>
+    <div>
+      <h1>Luxon</h1>
+      <div>{{ tomorrowLuxon }}</div>
+      is after
+      <div>{{ parseJsDateLuxon }}</div>
+      <div>{{ comparisonLuxon }}</div>
+      <div class="terminal">
+        <pre>isAfter(inputA: DateTime, inputB: DateTime): boolean</pre>
+        <pre>    return inputA > inputB;</pre>
+      </div>
+    </div>
+    <div>
+      <h1>DayJS</h1>
+      <div>{{ tomorrowDayJs }}</div>
+      is after
+      <div>{{ parseJsDateDayJs }}</div>
+      <div>{{ comparisonDayJs }}</div>
+      <div class="terminal">
+        <pre>isAfter(</pre>
+        <pre>  inputA: dayjs.Dayjs,</pre>
+        <pre>  inputB: dayjs.Dayjs</pre>
+        <pre>): boolean</pre>
+        <pre>    return inputA.isAfter(inputB);</pre>
       </div>
     </div>
   </div>

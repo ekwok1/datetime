@@ -56,13 +56,28 @@ export class AppComponent {
   generateUtcLuxon = this._luxon.generateUtc(2021, 2, 24, 2, 30, 0);
   generateUtcDayJs = this._dayJs.generateUtc(2021, 2, 24, 2, 30, 0);
 
+  // eod
+  eodMoment = this._moment.endOf(this.parseJsDateMoment, 'day');
+  eodLuxon = this._luxon.endOf(this.parseJsDateLuxon, 'day');
+  eodDayJs = this._dayJs.endOf(this.parseJsDateDayJs, 'day');
+
+  // comparison
+  tomorrowMoment = this._moment.add(this.parseJsDateMoment, 1, 'day');
+  comparisonMoment = this._moment.isAfter(this.tomorrowMoment, this.parseJsDateMoment);
+  tomorrowLuxon = this._luxon.addDays(this.parseJsDateLuxon, 1);
+  comparisonLuxon = this._luxon.isAfter(this.tomorrowLuxon, this.parseJsDateLuxon);
+  tomorrowDayJs = this._dayJs.add(this.parseJsDateDayJs, 1, 'day');
+  comparisonDayJs = this._dayJs.isAfter(this.tomorrowDayJs, this.parseJsDateDayJs);
+
   // toggles
-  showCurrentTime = false;
+  showCurrentTime = true;
   showParseTime = false;
   showConvertUtc = false;
   showLocalize = false;
   showManipulation = false;
-  showGenerateUtc = true;
+  showGenerateUtc = false;
+  showEod = false;
+  showComparison = false;
 
   constructor(private _moment: MomentService, private _luxon: LuxonService, private _dayJs: DayJsService) { }
 
@@ -87,6 +102,12 @@ export class AppComponent {
       case(ViewEnum.generateUtc):
         this.showGenerateUtc = true;
         break;
+      case(ViewEnum.eod):
+        this.showEod = true;
+        break;
+      case(ViewEnum.comparison):
+        this.showComparison = true;
+        break;
     }
   }
 
@@ -97,6 +118,8 @@ export class AppComponent {
     this.showLocalize = false;
     this.showManipulation = false;
     this.showGenerateUtc = false;
+    this.showEod = false;
+    this.showComparison = false;
   }
 }
 
@@ -106,5 +129,7 @@ enum ViewEnum {
   convertUtc,
   localize,
   manipulation,
-  generateUtc
+  generateUtc,
+  eod,
+  comparison
 }
