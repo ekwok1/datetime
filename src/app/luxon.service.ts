@@ -5,7 +5,7 @@ import { Locale } from './locale.enum';
 @Injectable({ providedIn: 'root' })
 export class LuxonService {
   constructor(@Inject(LOCALE_ID) localeId: string) {
-    Settings.defaultLocale = Locale.zhCN;
+    Settings.defaultLocale = localeId ?? Locale.en;
   }
 
   now(): DateTime {
